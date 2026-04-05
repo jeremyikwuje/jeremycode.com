@@ -1,0 +1,11 @@
+# jeremycode.com — Full Machine-Readable Tool Index
+
+This file is generated and updated as tools are added to the directory.
+For the live index see: https://jeremycode.com/sitemap.xml
+
+Format per tool:
+  name | vertical | category | api_type | regions | url
+
+## Tools
+
+(populated as tools are added via admin)

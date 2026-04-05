@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+/*
+  Design tokens as CSS custom properties.
+  These are applied to :root and consumed by both Tailwind utilities
+  (via @theme) and raw CSS throughout the application.
+*/
+
+@theme {
+	/* Colors */
+	--color-bg: #0a0a0a;
+	--color-surface: #111827;
+	--color-surface-alt: #1a1a1a;
+	--color-primary: #a259ff;
+	--color-secondary: #4f8ef7;
+	--color-accent-green: #00ff94;
+	--color-text: #f5f5f5;
+	--color-text-muted: #9ca3af;
+	--color-border: #1f2937;
+
+	/* Typography */
+	--font-display: "DM Sans", sans-serif;
+	--font-body: "IBM Plex Sans", sans-serif;
+	--font-mono: "JetBrains Mono", monospace;
+
+	/* Spacing — 8px base unit */
+	--spacing-1: 4px;
+	--spacing-2: 8px;
+	--spacing-3: 12px;
+	--spacing-4: 16px;
+	--spacing-6: 24px;
+	--spacing-8: 32px;
+	--spacing-12: 48px;
+	--spacing-16: 64px;
+
+	/* Border radius */
+	--radius-card: 8px;
+	--radius-badge: 4px;
+	--radius-button: 6px;
+
+	/* Transitions */
+	--transition-hover: 150ms ease;
+	--transition-reveal: 200ms ease-out;
+}
+
+/*
+  Base styles applied globally.
+  Google Fonts are not loaded here (V1: zero third-party scripts).
+  Fonts are declared as system fallbacks until self-hosted in a later phase.
+*/
+
+:root {
+	color-scheme: dark;
+}
+
+body {
+	background-color: var(--color-bg);
+	color: var(--color-text);
+	font-family: var(--font-body);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Vertical accent colour override — set per-page via +layout.svelte style prop */
+:root {
+	--vertical-color: var(--color-primary);
+}

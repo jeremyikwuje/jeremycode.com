@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# LLM crawlers explicitly allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://jeremycode.com/sitemap.xml

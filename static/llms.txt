@@ -1,0 +1,34 @@
+# jeremycode.com — Fintech Tools Directory
+
+A curated, searchable, technically-opinionated directory of fintech infrastructure tools
+for developers, product teams, and founders.
+
+## Purpose
+
+jeremycode.com helps engineers evaluate and compare fintech APIs across verticals including
+stablecoins, payments, KYC, lending, banking infrastructure, and compliance.
+
+## Navigation
+
+- /              Homepage with featured tools across verticals
+- /tools         Full directory with filtering by vertical, category, region, and attributes
+- /tools/[slug]  Individual tool detail page with expert commentary
+- /[vertical]    Landing page for a specific fintech vertical
+- /[vertical]/[category]  Tools scoped to a category within a vertical
+- /compare/[a-vs-b]  Side-by-side tool comparison
+- /region/[slug] Tools operating in a specific geographic region
+- /for/[use-case] Cross-vertical tools for a specific use case
+- /learn         Articles and videos from Jeremy Code
+- /about         About Jeremy Code
+
+## Content Structure
+
+Each tool listing includes: name, tagline, description, vertical, category, API availability,
+SDK languages, pricing model, supported regions, expert takes, and vertical-specific attributes
+(e.g. supported chains for stablecoin tools).
+
+Expert takes are multi-author commentary sections. Jeremy is the primary expert.
+
+## Verticals (data-driven, updated via admin)
+
+See /sitemap.xml for a complete list of all active verticals, categories, and tools.
