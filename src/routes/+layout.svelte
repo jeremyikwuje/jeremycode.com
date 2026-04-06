@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import { navigating } from '$app/state';
 	import { uiStore, verticalStore } from '$lib/stores/index.js';
 	import GlobalNav from '$lib/components/layout/GlobalNav.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
@@ -12,6 +13,25 @@
 	}
 
 	let { data, children }: Props = $props();
+
+	// Progress bar — PH-style purple bar across the top during navigation
+	let showDone = $state(false);
+	let wasNavigating = $state(false);
+	let doneTimer: ReturnType<typeof setTimeout> | undefined;
+	const isNavigating = $derived(!!navigating.to);
+
+	$effect(() => {
+		if (isNavigating) {
+			showDone = false;
+			clearTimeout(doneTimer);
+		} else if (wasNavigating) {
+			// Navigation just finished — flash the completed bar then fade out
+			showDone = true;
+			doneTimer = setTimeout(() => { showDone = false; }, 600);
+		}
+		wasNavigating = isNavigating;
+		return () => clearTimeout(doneTimer);
+	});
 
 	// Populate vertical store from server data so all components can read it
 	// without prop-drilling. Runs whenever data.verticals changes (e.g. nav).
@@ -41,6 +61,13 @@
 </svelte:head>
 
 <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+<!-- PH-style navigation progress bar -->
+{#if isNavigating}
+	<div class="nav-progress" aria-hidden="true"></div>
+{:else if showDone}
+	<div class="nav-progress nav-progress-done" aria-hidden="true"></div>
+{/if}
 
 <div class="flex flex-col min-h-screen">
 	<GlobalNav verticals={data.verticals} />
