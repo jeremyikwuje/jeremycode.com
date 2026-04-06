@@ -99,11 +99,19 @@
 			role="dialog"
 			aria-modal="true"
 			aria-label="Search tools"
-			class="w-full max-w-xl bg-[--color-surface] border border-[--color-border] shadow-2xl overflow-hidden"
-			style="border-radius: var(--radius-card);"
+			class="w-full max-w-xl overflow-hidden shadow-2xl"
+			style="
+			  background: var(--color-surface-3);
+			  border: 1px solid var(--color-border-hover);
+			  border-radius: var(--radius-card);
+			  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 24px 64px rgba(0,0,0,0.7);
+			"
 		>
 			<!-- Input row -->
-			<div class="flex items-center gap-3 px-4 border-b border-[--color-border]">
+			<div
+				class="flex items-center gap-3 px-4"
+				style="border-bottom: 1px solid var(--color-border-subtle);"
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="16"
@@ -133,9 +141,8 @@
 				{/if}
 				<kbd
 					class="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-xs
-					       bg-[--color-surface-alt] border border-[--color-border]
 					       text-[--color-text-muted] font-mono leading-none"
-					style="border-radius: 4px;"
+					style="background: var(--color-surface-2); border-radius: 4px;"
 				>
 					Esc
 				</kbd>
@@ -152,8 +159,8 @@
 								onmouseenter={() => (selectedIndex = i)}
 								class="w-full flex items-center gap-3 px-4 py-3 text-left transition-colors
 								       {i === selectedIndex
-									? 'bg-[--color-surface-alt]'
-									: 'hover:bg-[--color-surface-alt]'}"
+									? 'bg-[--color-surface-2]'
+									: 'hover:bg-[--color-surface-2]'}"
 							>
 								<!-- Logo / fallback avatar -->
 								{#if tool.logo_url}
@@ -168,7 +175,7 @@
 								{:else}
 									<span
 										class="shrink-0 w-8 h-8 flex items-center justify-center
-										       bg-[--color-surface-alt] text-[--color-text-muted] text-sm font-bold"
+										       bg-[--color-surface-2] text-[--color-text-muted] text-sm font-bold"
 										style="border-radius: var(--radius-badge);"
 									>
 										{toolInitial(tool.name)}
@@ -211,19 +218,19 @@
 
 			<!-- Footer hint -->
 			<div
-				class="flex items-center gap-4 px-4 py-2 border-t border-[--color-border]
-				       text-xs text-[--color-text-muted]"
+				class="flex items-center gap-4 px-4 py-2 text-xs text-[--color-text-muted]"
+			style="border-top: 1px solid var(--color-border-subtle);"
 			>
 				<span class="flex items-center gap-1">
-					<kbd class="font-mono bg-[--color-surface-alt] px-1 py-0.5" style="border-radius:3px;">↑↓</kbd>
+					<kbd class="font-mono px-1 py-0.5" style="background: var(--color-surface-2); border-radius:3px;">↑↓</kbd>
 					navigate
 				</span>
 				<span class="flex items-center gap-1">
-					<kbd class="font-mono bg-[--color-surface-alt] px-1 py-0.5" style="border-radius:3px;">↵</kbd>
+					<kbd class="font-mono px-1 py-0.5" style="background: var(--color-surface-2); border-radius:3px;">↵</kbd>
 					open
 				</span>
 				<span class="flex items-center gap-1">
-					<kbd class="font-mono bg-[--color-surface-alt] px-1 py-0.5" style="border-radius:3px;">Esc</kbd>
+					<kbd class="font-mono px-1 py-0.5" style="background: var(--color-surface-2); border-radius:3px;">Esc</kbd>
 					close
 				</span>
 			</div>

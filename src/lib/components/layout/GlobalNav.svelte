@@ -143,7 +143,7 @@
 				</a>
 			{/each}
 
-			<div class="mt-2 pt-2 border-t border-[--color-border] flex flex-col gap-1">
+			<div class="mt-2 pt-2 flex flex-col gap-1" style="border-top: 1px solid var(--color-border-subtle);">
 				<a
 					href="/tools"
 					onclick={() => uiStore.closeMobileMenu()}

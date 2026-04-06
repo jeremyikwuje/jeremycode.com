@@ -40,7 +40,7 @@
 			{:else}
 				<span
 					class="shrink-0 w-9 h-9 flex items-center justify-center rounded-full
-					       bg-[--color-surface] text-[--color-text-muted] text-sm font-bold"
+					       bg-[--color-surface-2] text-[--color-text-muted] text-sm font-bold"
 					aria-hidden="true"
 				>
 					{expertInitial(expert.name)}

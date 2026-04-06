@@ -142,10 +142,12 @@
 			value={typeof value === 'string' ? value : ''}
 			oninput={handleText}
 			placeholder="Filter by {definition.display_name.toLowerCase()}…"
-			class="h-8 px-2.5 text-sm bg-[--color-surface] border border-[--color-border]
-			       text-[--color-text] placeholder:text-[--color-text-muted]
-			       focus:outline-none focus:border-[--color-primary] transition-colors"
-			style="border-radius: var(--radius-button);"
+			class="h-8 px-2.5 text-sm text-[--color-text] placeholder:text-[--color-text-muted]
+			       focus:outline-none transition-colors"
+		style="background: var(--color-surface-1); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-button);"
+		onfocus={(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)')}
+		onblur={(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-border-subtle)')}
+
 		/>
 	{/if}
 </fieldset>

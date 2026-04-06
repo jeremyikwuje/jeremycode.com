@@ -158,10 +158,8 @@
 					const v = (e.target as HTMLSelectElement).value;
 					filterStore.setRegion(v || null);
 				}}
-				class="h-8 px-2 text-sm bg-[--color-surface] border border-[--color-border]
-				       text-[--color-text] focus:outline-none focus:border-[--color-primary]
-				       transition-colors appearance-none"
-				style="border-radius: var(--radius-button);"
+				class="h-8 px-2 text-sm text-[--color-text] focus:outline-none transition-colors appearance-none"
+				style="background: var(--color-surface-1); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-button);"
 			>
 				<option value="">All regions</option>
 				{#each regions as r (r.id)}

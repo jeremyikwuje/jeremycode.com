@@ -35,7 +35,7 @@
 			{:else}
 				<span
 					class="shrink-0 w-10 h-10 flex items-center justify-center
-					       bg-[--color-surface-alt] text-[--color-text-muted] text-base font-bold"
+					       bg-[--color-surface-2] text-[--color-text-muted] text-base font-bold"
 					style="border-radius: var(--radius-badge);"
 					aria-hidden="true"
 				>
@@ -90,8 +90,7 @@
 	<a
 		href="/tools/{tool.slug}"
 		class="group flex items-center gap-4 px-4 py-3
-		       border-b border-[--color-border] last:border-b-0
-		       hover:bg-[--color-surface] transition-colors {extraClass}"
+		       hover:bg-[--color-surface-2] transition-colors {extraClass}"
 	>
 		<!-- Logo -->
 		{#if tool.logo_url}
@@ -107,7 +106,7 @@
 		{:else}
 			<span
 				class="shrink-0 w-8 h-8 flex items-center justify-center
-				       bg-[--color-surface-alt] text-[--color-text-muted] text-sm font-bold"
+				       bg-[--color-surface-2] text-[--color-text-muted] text-sm font-bold"
 				style="border-radius: var(--radius-badge);"
 				aria-hidden="true"
 			>

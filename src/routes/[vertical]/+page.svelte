@@ -109,9 +109,10 @@
 						<a
 							href="/{vertical.slug}/{category.slug}"
 							class="inline-flex items-center h-8 px-3 text-sm font-medium
-							       bg-[--color-surface] border border-[--color-border] text-[--color-text-muted]
-							       hover:border-[--color-primary] hover:text-[--color-text] transition-colors"
-							style="border-radius: var(--radius-button);"
+							       text-[--color-text-muted] hover:text-[--color-text] transition-colors"
+							style="background: var(--color-surface-1); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-button);"
+							onmouseenter={(e) => ((e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-primary)')}
+							onmouseleave={(e) => ((e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--color-border-subtle)')}
 						>
 							{category.name}
 						</a>

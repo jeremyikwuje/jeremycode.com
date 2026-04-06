@@ -140,6 +140,12 @@ body {
 		0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
+/* ── Button ghost variant hover ──────────────────────────────── */
+.btn-ghost:hover {
+	background-color: var(--color-surface-2) !important;
+	color: var(--color-text) !important;
+}
+
 /* ── Dividers ─────────────────────────────────────────────────── */
 .divider {
 	border-color: var(--color-border-subtle);

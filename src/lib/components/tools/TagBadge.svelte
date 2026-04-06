@@ -25,7 +25,7 @@
 	const classes = $derived(
 		[
 			'inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium leading-none whitespace-nowrap',
-			colour ? '' : 'bg-[--color-surface-alt] text-[--color-text-muted]',
+			colour ? '' : 'bg-[--color-surface-2] text-[--color-text-muted]',
 			extraClass
 		]
 			.filter(Boolean)

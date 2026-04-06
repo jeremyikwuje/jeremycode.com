@@ -22,10 +22,12 @@
 		onclick={() => uiStore.openSearchPalette()}
 		aria-label="Open search (Cmd+K)"
 		class="hidden md:flex items-center gap-2 h-9 px-3 text-sm text-[--color-text-muted]
-		       bg-[--color-surface] border border-[--color-border]
-		       hover:border-[--color-primary] hover:text-[--color-text]
-		       transition-colors {extraClass}"
-		style="border-radius: var(--radius-button);"
+		       hover:text-[--color-text] transition-colors {extraClass}"
+		style="background: var(--color-surface-1); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-button);"
+		onfocus={(e) => ((e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-primary)')}
+		onblur={(e) => ((e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border-subtle)')}
+		onmouseenter={(e) => ((e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-primary)')}
+		onmouseleave={(e) => ((e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border-subtle)')}
 	>
 		<!-- Magnifying glass icon -->
 		<svg
@@ -46,9 +48,8 @@
 		<span class="hidden lg:inline">{placeholder}</span>
 		<kbd
 			class="hidden lg:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-xs
-			       bg-[--color-surface-alt] border border-[--color-border]
 			       text-[--color-text-muted] font-mono leading-none"
-			style="border-radius: 4px;"
+			style="background: var(--color-surface-2); border-radius: 4px;"
 		>
 			<span class="text-base leading-none">⌘</span>K
 		</kbd>
@@ -82,17 +83,18 @@
 			{placeholder}
 			onclick={() => uiStore.openSearchPalette()}
 			class="w-full h-11 pl-10 pr-4 text-sm cursor-pointer
-			       bg-[--color-surface] text-[--color-text] placeholder:text-[--color-text-muted]
-			       border border-[--color-border] hover:border-[--color-primary]
-			       focus:outline-none focus:border-[--color-primary]
-			       transition-colors"
-			style="border-radius: var(--radius-button);"
+			       text-[--color-text] placeholder:text-[--color-text-muted]
+			       focus:outline-none transition-colors"
+			style="background: var(--color-surface-1); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-button);"
+			onfocus={(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)')}
+			onblur={(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-border-subtle)')}
+			onmouseenter={(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)')}
+			onmouseleave={(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-border-subtle)')}
 		/>
 		<kbd
 			class="absolute right-3 inline-flex items-center gap-0.5 px-1.5 py-0.5 text-xs
-			       bg-[--color-surface-alt] border border-[--color-border]
 			       text-[--color-text-muted] font-mono leading-none pointer-events-none"
-			style="border-radius: 4px;"
+			style="background: var(--color-surface-2); border-radius: 4px;"
 		>
 			<span class="text-base leading-none">⌘</span>K
 		</kbd>

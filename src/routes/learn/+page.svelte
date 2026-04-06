@@ -43,8 +43,8 @@
 					class="h-8 px-3 text-sm font-medium transition-colors
 					       {data.activeVerticalSlug === null
 						? 'bg-[--color-primary] text-white'
-						: 'bg-[--color-surface] text-[--color-text-muted] border border-[--color-border] hover:text-[--color-text]'}"
-					style="border-radius: var(--radius-button);"
+						: 'text-[--color-text-muted] hover:text-[--color-text]'}"
+					style="border-radius: var(--radius-button); {data.activeVerticalSlug !== null ? 'background: var(--color-surface-1); border: 1px solid var(--color-border-subtle);' : ''}"
 				>
 					All
 				</button>

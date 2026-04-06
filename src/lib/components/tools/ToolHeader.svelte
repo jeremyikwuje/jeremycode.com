@@ -19,8 +19,7 @@
 
 <!-- Vertical accent colour scoped to this component's subtree -->
 <section
-	class="border-b border-[--color-border]"
-	style="--vertical-color: {accentColor};"
+	style="border-bottom: 1px solid var(--color-border-subtle); --vertical-color: {accentColor};"
 >
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 		<div class="flex flex-col sm:flex-row items-start gap-6">
@@ -36,8 +35,8 @@
 				/>
 			{:else}
 				<span
-					class="shrink-0 w-[72px] h-[72px] flex items-center justify-center
-					       bg-[--color-surface-alt] text-[--color-text-muted] text-2xl font-bold"
+					class="shrink-0 w-18 h-18 flex items-center justify-center
+					       bg-[--color-surface-2] text-[--color-text-muted] text-2xl font-bold"
 					style="border-radius: var(--radius-card);"
 					aria-hidden="true"
 				>
@@ -128,8 +127,8 @@
 		<!-- Dynamic vertical-specific attributes — rendered inline below the hero -->
 		{#if Object.keys(tool.attributes ?? {}).length > 0}
 			<dl
-				class="mt-8 pt-6 border-t border-[--color-border]
-				       grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4"
+				class="mt-8 pt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4"
+			style="border-top: 1px solid var(--color-border-subtle);"
 			>
 				{#each Object.entries(tool.attributes) as [key, value]}
 					{@const def = tool.vertical?.attribute_definitions?.find((d) => d.key === key)}

@@ -14,22 +14,32 @@
 
 	let { data }: { data: PageData } = $props();
 
+	// Guard to prevent the URL-sync effect from firing during hydration
+	let hydrating = true;
+
 	// Hydrate filterStore from URL on first render
 	$effect(() => {
 		filterStore.fromSearchParams(page.url.searchParams, data.verticals);
+		// Mark hydration complete after first run, but in a microtask
+		// so the sync effect below skips its first run.
+		if (hydrating) {
+			queueMicrotask(() => { hydrating = false; });
+		}
 	});
 
 	// Sync filter changes back to URL
 	function applyFilters() {
 		const params = filterStore.toSearchParams();
 		const qs = params.toString();
-		goto(`/tools${qs ? `?${qs}` : ''}`, { replaceState: true, keepFocus: true });
+		goto(`/tools${qs ? `?${qs}` : ''}`, { replaceState: true, keepFocus: true, noScroll: true });
 	}
 
-	// Re-apply filters when filterStore state changes
+	// Re-apply filters when filterStore state changes (user interaction only)
 	$effect(() => {
-		// Access state to subscribe; void suppresses unused-var lint
+		// Subscribe to state changes
 		void filterStore.state;
+		// Skip during hydration to avoid circular goto
+		if (hydrating) return;
 		if (filterStore.hasActiveFilters || page.url.searchParams.size > 0) {
 			applyFilters();
 		}
@@ -87,9 +97,10 @@
 			type="button"
 			onclick={() => uiStore.openFilterDrawer()}
 			class="shrink-0 inline-flex items-center gap-1.5 h-9 px-3 text-sm font-medium
-			       bg-[--color-surface] border border-[--color-border] text-[--color-text-muted]
-			       hover:border-[--color-primary] hover:text-[--color-text] transition-colors"
-			style="border-radius: var(--radius-button);"
+			       text-[--color-text-muted] hover:text-[--color-text] transition-colors"
+			style="background: var(--color-surface-1); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-button);"
+			onmouseenter={(e) => ((e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-primary)')}
+			onmouseleave={(e) => ((e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border-subtle)')}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +155,7 @@
 			</div>
 
 			<!-- Section heading with count -->
-			<div class="flex items-center justify-between mb-4 pb-3 border-b border-[--color-border]">
+			<div class="flex items-center justify-between mb-4 pb-3" style="border-bottom: 1px solid var(--color-border-subtle);">
 				<h2
 					class="text-base font-semibold text-[--color-text]"
 					style="font-family: var(--font-display);"
@@ -163,7 +174,7 @@
 				</span>
 			</div>
 
-			{#if navigating}
+			{#if navigating.to}
 				<ToolListItemSkeleton count={8} />
 			{:else if data.tools.length > 0}
 				<div class="flex flex-col gap-3" aria-live="polite" aria-label="Tool results">
@@ -185,10 +196,11 @@
 							type="button"
 							onclick={() => goToPage(data.currentPage - 1)}
 							disabled={data.currentPage <= 1}
-							class="h-9 px-3 text-sm text-[--color-text-muted] bg-[--color-surface]
-							       border border-[--color-border] hover:border-[--color-primary]
+							class="h-9 px-3 text-sm text-[--color-text-muted]
 							       disabled:opacity-40 disabled:pointer-events-none transition-colors"
-							style="border-radius: var(--radius-button);"
+							style="background: var(--color-surface-1); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-button);"
+							onmouseenter={(e) => !(e.currentTarget as HTMLButtonElement).disabled && ((e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-primary)')}
+							onmouseleave={(e) => ((e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border-subtle)')}
 						>
 							Previous
 						</button>
@@ -201,10 +213,11 @@
 							type="button"
 							onclick={() => goToPage(data.currentPage + 1)}
 							disabled={data.currentPage >= totalPages}
-							class="h-9 px-3 text-sm text-[--color-text-muted] bg-[--color-surface]
-							       border border-[--color-border] hover:border-[--color-primary]
+							class="h-9 px-3 text-sm text-[--color-text-muted]
 							       disabled:opacity-40 disabled:pointer-events-none transition-colors"
-							style="border-radius: var(--radius-button);"
+							style="background: var(--color-surface-1); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-button);"
+							onmouseenter={(e) => !(e.currentTarget as HTMLButtonElement).disabled && ((e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-primary)')}
+							onmouseleave={(e) => ((e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border-subtle)')}
 						>
 							Next
 						</button>

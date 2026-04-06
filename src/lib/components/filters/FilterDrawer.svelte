@@ -34,11 +34,11 @@
 			aria-modal="true"
 			aria-label="Filter tools"
 			class="absolute bottom-0 inset-x-0 max-h-[85vh] overflow-y-auto
-			       bg-[--color-bg] border-t border-[--color-border]"
-			style="border-radius: var(--radius-card) var(--radius-card) 0 0;"
+			       bg-[--color-surface-1]"
+			style="border-top: 1px solid var(--color-border-subtle); border-radius: var(--radius-card) var(--radius-card) 0 0;"
 		>
 			<!-- Drag handle -->
-			<div class="flex justify-center pt-3 pb-1 sticky top-0 bg-[--color-bg] z-10">
+			<div class="flex justify-center pt-3 pb-1 sticky top-0 bg-[--color-surface-1] z-10">
 				<span
 					class="w-10 h-1 bg-[--color-border]"
 					style="border-radius: 2px;"

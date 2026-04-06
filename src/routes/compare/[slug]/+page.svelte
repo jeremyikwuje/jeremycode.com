@@ -85,8 +85,8 @@
 		{#each [toolA, toolB] as tool (tool.id)}
 			{@const accent = tool.vertical.accent_colour ?? 'var(--color-primary)'}
 			<div
-				class="p-5 bg-[--color-surface] border border-[--color-border] flex flex-col gap-3"
-				style="border-radius: var(--radius-card);"
+				class="p-5 flex flex-col gap-3"
+				style="background: var(--color-surface-1); border-radius: var(--radius-card);"
 			>
 				<div class="flex items-center gap-3">
 					{#if tool.logo_url}
@@ -94,7 +94,7 @@
 							class="shrink-0 object-contain" style="border-radius: var(--radius-badge);" />
 					{:else}
 						<span class="shrink-0 w-10 h-10 flex items-center justify-center
-							bg-[--color-surface-alt] text-[--color-text-muted] text-base font-bold"
+							bg-[--color-surface-2] text-[--color-text-muted] text-base font-bold"
 							style="border-radius: var(--radius-badge);" aria-hidden="true">
 							{toolInitial(tool.name)}
 						</span>
@@ -232,8 +232,8 @@
 						<h3 class="text-sm font-semibold text-[--color-text-muted] mb-3">{side.tool.name}</h3>
 						{#if side.takes.length > 0}
 							{#each side.takes as take (take.id)}
-								<div class="p-4 bg-[--color-surface] border border-[--color-border] text-sm text-[--color-text] leading-relaxed"
-									style="border-radius: var(--radius-card);">
+								<div class="p-4 text-sm text-[--color-text] leading-relaxed"
+									style="background: var(--color-surface-1); border-radius: var(--radius-card);">
 									<p class="font-medium text-xs text-[--color-text-muted] mb-2">{take.expert.name}</p>
 									{take.content}
 								</div>

@@ -44,14 +44,19 @@
 
 		<input
 			id={inputId}
-			class="w-full bg-[--color-surface] text-[--color-text] placeholder:text-[--color-text-muted]
-			       border border-[--color-border] transition-colors
-			       focus:outline-none focus:border-[--color-primary]
-			       disabled:opacity-50 disabled:cursor-not-allowed
+			class="w-full text-[--color-text] placeholder:text-[--color-text-muted]
+			       focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed
 			       {leadingIcon ? 'pl-9' : 'pl-3'}
 			       {trailingIcon ? 'pr-9' : 'pr-3'}
 			       py-2 text-sm h-10"
-			style="border-radius: var(--radius-button);"
+			style="
+			  background: var(--color-surface-1);
+			  border: 1px solid var(--color-border-subtle);
+			  border-radius: var(--radius-button);
+			  transition: border-color 150ms ease;
+			"
+			onfocus={(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-primary)')}
+			onblur={(e) => ((e.currentTarget as HTMLInputElement).style.borderColor = 'var(--color-border-subtle)')}
 			aria-invalid={error ? 'true' : undefined}
 			aria-describedby="{error ? `${inputId}-error` : ''} {hint ? `${inputId}-hint` : ''}"
 			{...rest}

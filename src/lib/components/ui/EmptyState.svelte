@@ -14,7 +14,7 @@
 	<!-- Empty icon -->
 	<div
 		class="w-14 h-14 flex items-center justify-center mb-5
-		       bg-[--color-surface] border border-[--color-border]"
+		       bg-[--color-surface-2]"
 		style="border-radius: var(--radius-card);"
 		aria-hidden="true"
 	>

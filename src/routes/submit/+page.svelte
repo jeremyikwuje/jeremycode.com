@@ -216,10 +216,9 @@
 							name="description"
 							rows={5}
 							placeholder="What does this tool do? Who is it for? What makes it worth listing?"
-							class="px-3 py-2 text-sm bg-[--color-surface] border border-[--color-border]
-							       text-[--color-text] placeholder:text-[--color-text-muted]
-							       focus:outline-none focus:border-[--color-primary] transition-colors resize-y"
-							style="border-radius: var(--radius-button);"
+							class="px-3 py-2 text-sm text-[--color-text] placeholder:text-[--color-text-muted]
+							       focus:outline-none transition-colors resize-y"
+							style="background: var(--color-surface-1); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-button);"
 						>{values.description as string ?? ''}</textarea>
 					</div>
 
@@ -273,16 +272,15 @@
 									type="text"
 									name="attr_{def.key}"
 									placeholder={def.display_name}
-									class="h-10 px-3 text-sm bg-[--color-surface] border border-[--color-border]
-									       text-[--color-text] placeholder:text-[--color-text-muted]
-									       focus:outline-none focus:border-[--color-primary] transition-colors"
-									style="border-radius: var(--radius-button);"
+									class="h-10 px-3 text-sm text-[--color-text] placeholder:text-[--color-text-muted]
+									       focus:outline-none transition-colors"
+									style="background: var(--color-surface-1); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-button);"
 								/>
 							{/if}
 						</div>
 					{/each}
 
-					<div class="pt-4 border-t border-[--color-border]">
+					<div class="pt-4" style="border-top: 1px solid var(--color-border-subtle);">
 						<Input
 							name="submitter_email"
 							label="Your email * (not published)"

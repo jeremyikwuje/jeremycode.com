@@ -21,8 +21,8 @@
 
 <div class="min-h-screen flex items-center justify-center px-4">
 	<div
-		class="w-full max-w-sm p-8 bg-[--color-surface] border border-[--color-border]"
-		style="border-radius: var(--radius-card);"
+		class="w-full max-w-sm p-8"
+		style="background: var(--color-surface-1); border-radius: var(--radius-card);"
 	>
 		<div class="mb-8 text-center">
 			<h1

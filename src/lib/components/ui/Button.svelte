@@ -36,23 +36,32 @@
 		lg: 'h-12 px-6 text-base gap-2'
 	};
 
-	const variants: Record<Variant, string> = {
-		primary:     'bg-[--color-primary] text-black font-semibold hover:opacity-90 active:opacity-80',
-		secondary:   'bg-[--color-secondary] text-white hover:opacity-90 active:opacity-80',
-		ghost:       'bg-[--color-surface-1] text-[--color-text-secondary] hover:bg-[--color-surface-2] hover:text-[--color-text]',
-		destructive: 'bg-red-600 text-white hover:bg-red-500 active:bg-red-700'
+	const variantClasses: Record<Variant, string> = {
+		primary:     'font-semibold hover:opacity-90 active:opacity-80',
+		secondary:   'hover:opacity-90 active:opacity-80',
+		ghost:       'btn-ghost',
+		destructive: 'hover:opacity-90 active:opacity-80'
+	};
+
+	const variantStyles: Record<Variant, string> = {
+		primary:     'background-color: var(--color-primary); color: #000;',
+		secondary:   'background-color: var(--color-secondary); color: #fff;',
+		ghost:       'background-color: var(--color-surface-1); color: var(--color-text-secondary);',
+		destructive: 'background-color: #dc2626; color: #fff;'
 	};
 
 	const classes = $derived(
-		[base, sizes[size], variants[variant], extraClass].filter(Boolean).join(' ')
+		[base, sizes[size], variantClasses[variant], extraClass].filter(Boolean).join(' ')
 	);
+
+	const variantStyle = $derived(variantStyles[variant]);
 </script>
 
 {#if href}
 	<a
 		{href}
 		class={classes}
-		style="border-radius: var(--radius-button);"
+		style="border-radius: var(--radius-button); {variantStyle}"
 		aria-disabled={disabled || undefined}
 		{...rest as HTMLAnchorAttributes}
 	>
@@ -61,7 +70,7 @@
 {:else}
 	<button
 		class={classes}
-		style="border-radius: var(--radius-button);"
+		style="border-radius: var(--radius-button); {variantStyle}"
 		{disabled}
 		{...rest as HTMLButtonAttributes}
 	>

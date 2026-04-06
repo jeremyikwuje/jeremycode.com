@@ -151,8 +151,8 @@
 			<!-- Sidebar -->
 			<aside class="lg:w-72 shrink-0">
 				<div
-					class="lg:sticky lg:top-24 flex flex-col gap-6 p-5 bg-[--color-surface] border border-[--color-border]"
-					style="border-radius: var(--radius-card);"
+					class="lg:sticky lg:top-24 flex flex-col gap-6 p-5"
+					style="background: var(--color-surface-1); border-radius: var(--radius-card);"
 				>
 					<!-- Metadata table -->
 					<dl class="flex flex-col gap-3">
@@ -240,7 +240,7 @@
 					</dl>
 
 					<!-- Links -->
-					<div class="flex flex-col gap-2 pt-4 border-t border-[--color-border]">
+					<div class="flex flex-col gap-2 pt-4" style="border-top: 1px solid var(--color-border-subtle);">
 						<Button href={tool.website_url} size="sm">
 							Visit Website
 						</Button>
@@ -257,7 +257,7 @@
 					</div>
 
 					<!-- Compare CTA -->
-					<div class="pt-4 border-t border-[--color-border]">
+					<div class="pt-4" style="border-top: 1px solid var(--color-border-subtle);">
 						<p class="text-xs text-[--color-text-muted] mb-2">Compare with another tool</p>
 						<Button href="/tools" variant="ghost" size="sm" class="w-full">
 							Browse tools to compare

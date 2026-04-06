@@ -12,7 +12,7 @@
 	const currentYear = new Date().getFullYear();
 </script>
 
-<footer class="border-t border-[--color-border] bg-[--color-bg] mt-16">
+<footer class="mt-16" style="border-top: 1px solid var(--color-border-subtle); background: var(--color-bg);">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
 		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
 			<!-- Brand -->
@@ -128,8 +128,8 @@
 
 		<!-- Bottom bar -->
 		<div
-			class="mt-10 pt-6 border-t border-[--color-border]
-			       flex flex-col sm:flex-row items-center justify-between gap-4"
+			class="mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+		style="border-top: 1px solid var(--color-border-subtle);"
 		>
 			<p class="text-xs text-[--color-text-muted]">
 				© {currentYear} Jeremy Code Ltd. All rights reserved.
