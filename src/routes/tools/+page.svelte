@@ -2,9 +2,7 @@
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { filterStore, uiStore } from '$lib/stores/index.js';
-	import { navigating } from '$app/state';
 	import ToolListItem from '$lib/components/tools/ToolListItem.svelte';
-	import ToolListItemSkeleton from '$lib/components/tools/ToolListItemSkeleton.svelte';
 	import FilterPanel from '$lib/components/filters/FilterPanel.svelte';
 	import FilterDrawer from '$lib/components/filters/FilterDrawer.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
@@ -14,35 +12,24 @@
 
 	let { data }: { data: PageData } = $props();
 
-	// Guard to prevent the URL-sync effect from firing during hydration
-	let hydrating = true;
+	// Track whether we're syncing FROM URL → store (to avoid circular goto)
+	let syncing = false;
 
-	// Hydrate filterStore from URL on first render
+	// Hydrate filterStore from URL whenever search params change
 	$effect(() => {
+		syncing = true;
 		filterStore.fromSearchParams(page.url.searchParams, data.verticals);
-		// Mark hydration complete after first run, but in a microtask
-		// so the sync effect below skips its first run.
-		if (hydrating) {
-			queueMicrotask(() => { hydrating = false; });
-		}
+		// Use tick to ensure the sync flag is cleared after the store-watching effect runs
+		queueMicrotask(() => { syncing = false; });
 	});
 
-	// Sync filter changes back to URL
-	function applyFilters() {
+	// Sync filter changes back to URL (only from user interaction, not URL hydration)
+	$effect(() => {
+		void filterStore.state;
+		if (syncing) return;
 		const params = filterStore.toSearchParams();
 		const qs = params.toString();
 		goto(`/tools${qs ? `?${qs}` : ''}`, { replaceState: true, keepFocus: true, noScroll: true });
-	}
-
-	// Re-apply filters when filterStore state changes (user interaction only)
-	$effect(() => {
-		// Subscribe to state changes
-		void filterStore.state;
-		// Skip during hydration to avoid circular goto
-		if (hydrating) return;
-		if (filterStore.hasActiveFilters || page.url.searchParams.size > 0) {
-			applyFilters();
-		}
 	});
 
 	// Pagination helpers
@@ -174,9 +161,7 @@
 				</span>
 			</div>
 
-			{#if navigating.to}
-				<ToolListItemSkeleton count={8} />
-			{:else if data.tools.length > 0}
+			{#if data.tools.length > 0}
 				<div class="flex flex-col gap-3" aria-live="polite" aria-label="Tool results">
 					{#each data.tools as tool, i (tool.id)}
 						<ToolListItem
