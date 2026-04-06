@@ -2,10 +2,13 @@
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { filterStore, uiStore } from '$lib/stores/index.js';
+	import { navigating } from '$app/state';
 	import ToolListItem from '$lib/components/tools/ToolListItem.svelte';
+	import ToolListItemSkeleton from '$lib/components/tools/ToolListItemSkeleton.svelte';
 	import FilterPanel from '$lib/components/filters/FilterPanel.svelte';
 	import FilterDrawer from '$lib/components/filters/FilterDrawer.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
+	import EmptyState from '$lib/components/ui/EmptyState.svelte';
 	import SeoHead from '$lib/components/layout/SeoHead.svelte';
 	import type { PageData } from './$types.js';
 
@@ -25,7 +28,8 @@
 
 	// Re-apply filters when filterStore state changes
 	$effect(() => {
-		const _ = filterStore.state;
+		// Access state to subscribe; void suppresses unused-var lint
+		void filterStore.state;
 		if (filterStore.hasActiveFilters || page.url.searchParams.size > 0) {
 			applyFilters();
 		}
@@ -159,8 +163,10 @@
 				</span>
 			</div>
 
-			{#if data.tools.length > 0}
-				<div class="flex flex-col gap-3">
+			{#if navigating}
+				<ToolListItemSkeleton count={8} />
+			{:else if data.tools.length > 0}
+				<div class="flex flex-col gap-3" aria-live="polite" aria-label="Tool results">
 					{#each data.tools as tool, i (tool.id)}
 						<ToolListItem
 							{tool}
@@ -205,16 +211,14 @@
 					</nav>
 				{/if}
 			{:else}
-				<!-- Empty state -->
-				<div class="flex flex-col items-center justify-center py-16 text-center">
-					<p class="text-lg text-[--color-text-muted] mb-2">No tools found</p>
-					<p class="text-sm text-[--color-text-muted] mb-6 max-w-sm">
-						Try adjusting your filters or search across all verticals.
-					</p>
+				<EmptyState
+					title="No tools found"
+					description="Try adjusting your filters or browse all verticals."
+				>
 					<Button variant="ghost" onclick={() => filterStore.reset()}>
 						Clear all filters
 					</Button>
-				</div>
+				</EmptyState>
 			{/if}
 		</div>
 	</div>

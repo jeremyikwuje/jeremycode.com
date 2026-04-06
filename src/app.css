@@ -1,67 +1,146 @@
 @import "tailwindcss";
 
 /*
-  Design tokens as CSS custom properties.
-  These are applied to :root and consumed by both Tailwind utilities
-  (via @theme) and raw CSS throughout the application.
+  Design tokens — PH warmth + Vercel dark elegance.
+  Depth comes from surface shade shifts, not drawn borders.
+  Cards float in dark space; borders only appear on hover or inputs.
 */
 
 @theme {
-	/* Colors */
-	--color-bg: #0a0a0a;
-	--color-surface: #111827;
-	--color-surface-alt: #1a1a1a;
-	--color-primary: #a259ff;
-	--color-secondary: #4f8ef7;
-	--color-accent-green: #00ff94;
-	--color-text: #f5f5f5;
-	--color-text-muted: #9ca3af;
-	--color-border: #1f2937;
+	/* ── Surfaces (elevation system) ────────────────────────── */
+	--color-bg:         #09090B;  /* zinc-950, slightly warm black */
+	--color-surface-1:  #0F0F12;  /* cards, barely lifted off bg */
+	--color-surface-2:  #16161A;  /* elevated panels, hover states */
+	--color-surface-3:  #1C1C22;  /* modals, command palette, active */
 
-	/* Typography */
+	/* Backward-compat aliases — old code still works */
+	--color-surface:     #0F0F12;
+	--color-surface-alt: #16161A;
+
+	/* ── Borders (nearly invisible — depth via shade, not lines) ── */
+	/* Inputs/dividers only */
+	--color-border-subtle: rgba(255, 255, 255, 0.04);
+	/* Appears on card hover */
+	--color-border-hover:  rgba(255, 255, 255, 0.08);
+	/* Backward-compat alias */
+	--color-border: rgba(255, 255, 255, 0.04);
+
+	/* ── Accent ──────────────────────────────────────────────── */
+	--color-primary:      #A259FF;
+	--color-secondary:    #4F8EF7;
+	--color-accent-green: #00FF94;
+
+	/* ── Text ────────────────────────────────────────────────── */
+	--color-text:           #FAFAFA;   /* near-white, warm */
+	--color-text-secondary: #A1A1AA;   /* zinc-400 */
+	--color-text-tertiary:  #71717A;   /* zinc-500, metadata */
+	/* Backward-compat alias */
+	--color-text-muted: #A1A1AA;
+
+	/* ── Typography ──────────────────────────────────────────── */
 	--font-display: "DM Sans", sans-serif;
-	--font-body: "IBM Plex Sans", sans-serif;
-	--font-mono: "JetBrains Mono", monospace;
+	--font-body:    "IBM Plex Sans", sans-serif;
+	--font-mono:    "JetBrains Mono", monospace;
 
-	/* Spacing — 8px base unit */
-	--spacing-1: 4px;
-	--spacing-2: 8px;
-	--spacing-3: 12px;
-	--spacing-4: 16px;
-	--spacing-6: 24px;
-	--spacing-8: 32px;
+	/* ── Spacing (8px base) ──────────────────────────────────── */
+	--spacing-1:  4px;
+	--spacing-2:  8px;
+	--spacing-3:  12px;
+	--spacing-4:  16px;
+	--spacing-6:  24px;
+	--spacing-8:  32px;
 	--spacing-12: 48px;
 	--spacing-16: 64px;
 
-	/* Border radius */
-	--radius-card: 8px;
-	--radius-badge: 4px;
-	--radius-button: 6px;
+	/* ── Radii ────────────────────────────────────────────────── */
+	--radius-card:   10px;
+	--radius-badge:  4px;
+	--radius-button: 7px;
 
-	/* Transitions */
-	--transition-hover: 150ms ease;
+	/* ── Transitions ──────────────────────────────────────────── */
+	--transition-hover:  150ms ease;
 	--transition-reveal: 200ms ease-out;
 }
 
-/*
-  Base styles applied globally.
-  Google Fonts are not loaded here (V1: zero third-party scripts).
-  Fonts are declared as system fallbacks until self-hosted in a later phase.
-*/
+/* ── Base ─────────────────────────────────────────────────────── */
 
 :root {
 	color-scheme: dark;
+	--vertical-color: var(--color-primary);
 }
 
 body {
 	background-color: var(--color-bg);
+	/* Subtle radial glow from centre — depth without noise */
+	background-image: radial-gradient(
+		ellipse 80% 50% at 50% -10%,
+		rgba(15, 15, 18, 0.8) 0%,
+		transparent 100%
+	);
 	color: var(--color-text);
 	font-family: var(--font-body);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
-/* Vertical accent colour override — set per-page via +layout.svelte style prop */
-:root {
-	--vertical-color: var(--color-primary);
+/* ── Skip-to-main ─────────────────────────────────────────────── */
+.skip-to-main {
+	position: absolute;
+	top: -100%;
+	left: 1rem;
+	z-index: 9999;
+	padding: 0.5rem 1rem;
+	background: var(--color-primary);
+	color: #000;
+	font-size: 0.875rem;
+	font-weight: 600;
+	border-radius: var(--radius-button);
+	transition: top 150ms ease;
+}
+.skip-to-main:focus { top: 1rem; }
+
+/* ── Focus ring ───────────────────────────────────────────────── */
+:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+:focus:not(:focus-visible) { outline: none; }
+
+/* ── Reduced motion ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* ── Card hover treatment (applied as a class, not Tailwind) ───── */
+/*
+  .card-interactive adds the Vercel-style hover:
+    - background shifts from surface-1 → surface-2
+    - border fades in from invisible → hover opacity
+    - soft shadow appears
+    - NO transforms
+*/
+.card-interactive {
+	background: var(--color-surface-1);
+	border: 1px solid transparent;
+	transition:
+		background 200ms ease,
+		border-color 200ms ease,
+		box-shadow 200ms ease;
+}
+.card-interactive:hover {
+	background: var(--color-surface-2);
+	border-color: var(--color-border-hover);
+	box-shadow:
+		0 0 0 1px rgba(255, 255, 255, 0.03),
+		0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Dividers ─────────────────────────────────────────────────── */
+.divider {
+	border-color: var(--color-border-subtle);
 }

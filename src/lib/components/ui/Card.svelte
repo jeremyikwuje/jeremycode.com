@@ -15,22 +15,16 @@
 
 	let { variant = 'default', href, class: extraClass = '', children, ...rest }: Props = $props();
 
-	const base = 'block overflow-hidden transition-[border-color,box-shadow]';
+	const base = 'block overflow-hidden';
 
 	const variants: Record<Variant, string> = {
-		default: 'bg-[--color-surface] border border-[--color-border]',
-		elevated: 'bg-[--color-surface-alt] border border-[--color-border]',
-		flush: ''
+		default:  'card-interactive',
+		elevated: 'card-interactive',
+		flush:    ''
 	};
 
-	const interactive = $derived(
-		href
-			? 'hover:border-[--color-primary] hover:shadow-[0_0_0_1px_var(--color-primary)]'
-			: ''
-	);
-
 	const classes = $derived(
-		[base, variants[variant], interactive, extraClass].filter(Boolean).join(' ')
+		[base, variants[variant], extraClass].filter(Boolean).join(' ')
 	);
 </script>
 

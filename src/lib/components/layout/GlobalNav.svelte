@@ -21,8 +21,11 @@
 </script>
 
 <header
-	class="fixed top-0 inset-x-0 z-40 h-16 border-b border-[--color-border]
-	       bg-[--color-bg]/90 backdrop-blur-md"
+	class="fixed top-0 inset-x-0 z-40 h-16 backdrop-blur-md"
+	style="
+	  background: rgba(9,9,11,0.85);
+	  border-bottom: 1px solid var(--color-border-subtle);
+	"
 >
 	<nav
 		class="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center gap-4"
@@ -120,8 +123,11 @@
 	{#if uiStore.mobileMenuOpen}
 		<div
 			id="mobile-menu"
-			class="md:hidden border-t border-[--color-border] bg-[--color-bg]
-			       px-4 py-4 flex flex-col gap-1"
+			class="md:hidden px-4 py-4 flex flex-col gap-1"
+			style="
+			  background: var(--color-surface-1);
+			  border-top: 1px solid var(--color-border-subtle);
+			"
 		>
 			{#each activeVerticals as vertical (vertical.id)}
 				{@const active = isVerticalActive(vertical)}

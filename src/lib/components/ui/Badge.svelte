@@ -15,24 +15,32 @@
 		'inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium leading-none whitespace-nowrap';
 
 	const variants: Record<Variant, string> = {
-		default: 'bg-[--color-surface-alt] text-[--color-text-muted]',
-		vertical: 'text-white',
-		category:
-			'bg-[color:color-mix(in_srgb,var(--color-secondary)_15%,transparent)] text-[--color-secondary]',
-		api: 'border border-[--color-secondary] text-[--color-secondary]',
-		region:
-			'bg-[color:color-mix(in_srgb,var(--color-accent-green)_15%,transparent)] text-[--color-accent-green]',
-		verified:
-			'bg-[color:color-mix(in_srgb,var(--color-accent-green)_20%,transparent)] text-[--color-accent-green]'
+		default:  '',
+		vertical: '',
+		category: '',
+		api:      '',
+		region:   '',
+		verified: ''
 	};
 
-	const style = $derived(
-		variant === 'vertical'
-			? 'background-color: color-mix(in srgb, var(--vertical-color) 25%, transparent); color: var(--vertical-color); border-radius: var(--radius-badge);'
-			: 'border-radius: var(--radius-badge);'
-	);
+	// All badge colors are set via inline style for full design-token control
+	const styles: Record<Variant, string> = {
+		default:
+			'background: var(--color-surface-2); color: var(--color-text-secondary);',
+		vertical:
+			'background-color: color-mix(in srgb, var(--vertical-color) 12%, transparent); color: var(--vertical-color);',
+		category:
+			'background-color: color-mix(in srgb, var(--color-secondary) 12%, transparent); color: var(--color-secondary);',
+		api:
+			'background-color: color-mix(in srgb, var(--color-secondary) 8%, transparent); color: var(--color-secondary); outline: 1px solid color-mix(in srgb, var(--color-secondary) 30%, transparent);',
+		region:
+			'background-color: color-mix(in srgb, var(--color-accent-green) 12%, transparent); color: var(--color-accent-green);',
+		verified:
+			'background-color: color-mix(in srgb, var(--color-accent-green) 15%, transparent); color: var(--color-accent-green);'
+	};
 
 	const classes = $derived([base, variants[variant], extraClass].filter(Boolean).join(' '));
+	const style = $derived(`border-radius: var(--radius-badge); ${styles[variant]}`);
 </script>
 
 <span class={classes} {style}>

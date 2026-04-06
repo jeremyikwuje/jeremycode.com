@@ -55,16 +55,69 @@ in the project root.
 - All data fetched in +page.server.ts load functions, never client-side
 - Admin auth via JWT in HTTP-only secure cookie, validated in hooks.server.ts
 
-## Design tokens (CSS custom properties)
-- --color-bg: #0A0A0A
-- --color-surface: #111827
-- --color-surface-alt: #1A1A1A
-- --color-primary: #A259FF (Solid Purple)
-- --color-secondary: #4F8EF7 (Signal Blue)
-- --color-accent-green: #00FF94 (YouTube/video only)
-- --color-text: #F5F5F5
-- --color-text-muted: #9CA3AF
-- --color-border: #1F2937
+## Design philosophy
+Blend of Product Hunt (content-forward, warm, discoverable) and 
+Vercel (dark elegance, depth through surfaces, minimal chrome).
+
+KEY RULES:
+- NO visible borders on cards or containers by default
+- Depth comes from background shade shifts, NOT drawn lines
+- Cards reveal themselves on hover (background shift + faint border fade-in + soft shadow)
+- Typography and whitespace create structure, not boxes
+- The design should feel like surfaces floating in dark space, 
+  not cells in a wireframe grid
+- NO card hover transforms (no scale, no translateY)
+- NO white (#FFFFFF) anywhere — warmest text color is #FAFAFA
+- Inputs and form fields are the ONLY elements with visible 
+  borders at rest (and even those use rgba(255,255,255,0.06))
+- Dividers use rgba(255,255,255,0.04) — barely visible, 
+  just enough to hint at structure
+
+## Design tokens
+
+### Surfaces (depth through shade, not borders)
+- --color-bg: #09090B              (zinc-950, slightly warm black)
+- --color-surface-1: #0F0F12       (cards, barely lifted off background)  
+- --color-surface-2: #16161A       (elevated panels, modals, hover cards)
+- --color-surface-3: #1C1C22       (active states, selected items)
+
+### NO visible borders by default
+- --color-border-subtle: rgba(255, 255, 255, 0.04)   (nearly invisible, only for inputs/dividers)
+- --color-border-hover: rgba(255, 255, 255, 0.08)     (appears on card hover)
+- DO NOT use solid colored borders on cards or containers
+
+### Accent (unchanged)
+- --color-primary: #A259FF
+- --color-secondary: #4F8EF7
+- --color-accent-green: #00FF94
+
+### Text (warmer, more contrast range)
+- --color-text: #FAFAFA             (primary — almost white, not gray)
+- --color-text-secondary: #A1A1AA   (zinc-400, secondary text)
+- --color-text-tertiary: #71717A    (zinc-500, metadata, timestamps)
+
+### Card treatment
+- Cards: NO border by default. Background --color-surface-1.
+- Cards on hover: background shifts to --color-surface-2, 
+  border fades in at rgba(255,255,255,0.06), 
+  subtle box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 
+  0 4px 12px rgba(0,0,0,0.4)
+- Transitions: background 200ms ease, border-color 200ms ease, 
+  box-shadow 200ms ease
+- NO card hover transforms (no scale, no translateY — 
+  that's Dribbble energy, not Vercel)
+
+### Elevation system (replaces border-based separation)
+- Level 0: --color-bg (page)
+- Level 1: --color-surface-1 (cards, list items)
+- Level 2: --color-surface-2 (dropdowns, popovers, hover states)
+- Level 3: --color-surface-3 (modals, command palette)
+- Each level is visually distinct without borders
+
+### Subtle background texture
+- Page background: radial gradient from #0F0F12 center to 
+  #09090B edges — creates subtle depth
+- OR very fine noise texture at 2-3% opacity
 
 ## Typography
 - Display: DM Sans

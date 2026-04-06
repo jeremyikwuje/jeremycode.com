@@ -16,7 +16,7 @@
 	 *   filterStore.setAttribute / set*    → write new values
 	 *   Parent page syncs filterStore ↔ URL.
 	 */
-	import { filterStore, uiStore } from '$lib/stores/index.js';
+	import { filterStore } from '$lib/stores/index.js';
 	import DynamicAttributeFilter from './DynamicAttributeFilter.svelte';
 	import type { Vertical, Region, PricingModel } from '$lib/types/index.js';
 
@@ -52,7 +52,7 @@
 </script>
 
 <aside
-	class="flex flex-col gap-6 {extraClass}"
+	class="flex flex-col gap-5 {extraClass}"
 	aria-label="Filter tools"
 >
 	<!-- Vertical selector -->
@@ -66,8 +66,8 @@
 				onclick={() => filterStore.setVertical(null)}
 				class="text-left px-2.5 py-1.5 text-sm transition-colors
 				       {filterStore.state.vertical === null
-					? 'text-[--color-text] bg-[--color-surface] font-medium'
-					: 'text-[--color-text-muted] hover:text-[--color-text] hover:bg-[--color-surface]'}"
+					? 'text-[--color-text] bg-[--color-surface-2] font-medium'
+					: 'text-[--color-text-muted] hover:text-[--color-text] hover:bg-[--color-surface-1]'}"
 				style="border-radius: var(--radius-button);"
 			>
 				All verticals
@@ -81,7 +81,7 @@
 					class="text-left px-2.5 py-1.5 text-sm transition-colors
 					       {active
 						? 'font-medium'
-						: 'text-[--color-text-muted] hover:text-[--color-text] hover:bg-[--color-surface]'}"
+						: 'text-[--color-text-muted] hover:text-[--color-text] hover:bg-[--color-surface-1]'}"
 					style="border-radius: var(--radius-button); {active ? `color: ${color}; background-color: color-mix(in srgb, ${color} 10%, transparent);` : ''}"
 				>
 					{v.name}

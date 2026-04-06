@@ -40,6 +40,8 @@
 	<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 </svelte:head>
 
+<a href="#main-content" class="skip-to-main">Skip to main content</a>
+
 <div class="flex flex-col min-h-screen">
 	<GlobalNav verticals={data.verticals} />
 
@@ -47,7 +49,7 @@
 		pt-16 offsets the fixed nav height (h-16).
 		Pages that want full-bleed hero sections can use negative margin tricks.
 	-->
-	<main class="flex-1 pt-16">
+	<main id="main-content" class="flex-1 pt-16" tabindex="-1">
 		{@render children()}
 	</main>
 

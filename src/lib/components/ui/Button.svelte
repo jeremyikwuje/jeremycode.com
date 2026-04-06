@@ -37,10 +37,9 @@
 	};
 
 	const variants: Record<Variant, string> = {
-		primary: 'bg-[--color-primary] text-white hover:opacity-90 active:opacity-80',
-		secondary: 'bg-[--color-secondary] text-white hover:opacity-90 active:opacity-80',
-		ghost:
-			'bg-transparent text-[--color-text-muted] border border-[--color-border] hover:border-[--color-primary] hover:text-[--color-text]',
+		primary:     'bg-[--color-primary] text-black font-semibold hover:opacity-90 active:opacity-80',
+		secondary:   'bg-[--color-secondary] text-white hover:opacity-90 active:opacity-80',
+		ghost:       'bg-[--color-surface-1] text-[--color-text-secondary] hover:bg-[--color-surface-2] hover:text-[--color-text]',
 		destructive: 'bg-red-600 text-white hover:bg-red-500 active:bg-red-700'
 	};
 

@@ -21,24 +21,22 @@
 	);
 
 	const difficultyColors: Record<string, string> = {
-		beginner: 'var(--color-accent-green)',
+		beginner:     'var(--color-accent-green)',
 		intermediate: 'var(--color-secondary)',
-		advanced: '#F59E0B'
+		advanced:     '#F59E0B'
 	};
 </script>
 
 <a
 	href="/tools/{tool.slug}"
-	class="group flex items-center gap-4 px-4 py-4 sm:px-5
-	       bg-[--color-surface] border border-[--color-border]
-	       hover:border-[--color-primary] hover:shadow-[0_0_0_1px_var(--color-primary)]
-	       transition-[border-color,box-shadow] {extraClass}"
+	class="group card-interactive flex items-center gap-4 px-4 py-4 sm:px-5 {extraClass}"
 	style="border-radius: var(--radius-card);"
 >
 	<!-- Rank number (optional) -->
 	{#if rank !== undefined}
 		<span
-			class="hidden sm:flex shrink-0 w-6 text-sm font-semibold text-[--color-text-muted] tabular-nums text-right"
+			class="hidden sm:flex shrink-0 w-6 text-sm font-medium tabular-nums text-right"
+			style="color: var(--color-text-tertiary);"
 		>
 			{rank}.
 		</span>
@@ -57,36 +55,40 @@
 		/>
 	{:else}
 		<span
-			class="shrink-0 w-12 h-12 flex items-center justify-center
-			       bg-[--color-surface-alt] text-[--color-text-muted] text-lg font-bold"
-			style="border-radius: var(--radius-card);"
+			class="shrink-0 w-12 h-12 flex items-center justify-center text-lg font-bold"
+			style="
+			  border-radius: var(--radius-card);
+			  background: var(--color-surface-2);
+			  color: var(--color-text-secondary);
+			"
 			aria-hidden="true"
 		>
 			{toolInitial(tool.name)}
 		</span>
 	{/if}
 
-	<!-- Name + tagline + inline badges -->
+	<!-- Name + tagline + badges -->
 	<div class="flex-1 min-w-0">
-		<div class="flex items-center gap-2 flex-wrap">
+		<div class="flex items-baseline gap-2 flex-wrap">
 			<h3
-				class="text-base font-semibold text-[--color-text]
-				       group-hover:text-[--color-primary] transition-colors"
-				style="font-family: var(--font-display);"
+				class="text-base font-semibold transition-colors"
+				style="
+				  color: var(--color-text);
+				  font-family: var(--font-display);
+				"
 			>
 				{tool.name}
 			</h3>
-
-			<!-- Separator dot -->
-			<span class="hidden sm:block w-1 h-1 bg-[--color-border] shrink-0" style="border-radius: 50%;"></span>
-
-			<p class="hidden sm:block text-sm text-[--color-text-muted] truncate">
+			<p
+				class="hidden sm:block text-sm truncate"
+				style="color: var(--color-text-secondary);"
+			>
 				{tool.tagline}
 			</p>
 		</div>
 
 		<!-- Mobile tagline -->
-		<p class="sm:hidden text-sm text-[--color-text-muted] truncate mt-0.5">
+		<p class="sm:hidden text-sm truncate mt-0.5" style="color: var(--color-text-secondary);">
 			{tool.tagline}
 		</p>
 
@@ -97,7 +99,7 @@
 					class="inline-flex items-center px-2 py-0.5 text-xs font-medium"
 					style="
 					  border-radius: var(--radius-badge);
-					  background-color: color-mix(in srgb, {accentColor} 15%, transparent);
+					  background-color: color-mix(in srgb, {accentColor} 12%, transparent);
 					  color: {accentColor};
 					"
 				>
@@ -115,21 +117,24 @@
 
 			{#if pricingLabel}
 				<span
-					class="inline-flex items-center px-2 py-0.5 text-xs font-medium capitalize
-					       bg-[--color-surface-alt] text-[--color-text-muted]"
-					style="border-radius: var(--radius-badge);"
+					class="inline-flex items-center px-2 py-0.5 text-xs font-medium capitalize"
+					style="
+					  border-radius: var(--radius-badge);
+					  background: var(--color-surface-2);
+					  color: var(--color-text-secondary);
+					"
 				>
 					{pricingLabel}
 				</span>
 			{/if}
 
 			{#if tool.difficulty_rating}
-				{@const color = difficultyColors[tool.difficulty_rating] ?? 'var(--color-text-muted)'}
+				{@const color = difficultyColors[tool.difficulty_rating] ?? 'var(--color-text-secondary)'}
 				<span
 					class="hidden md:inline-flex items-center px-2 py-0.5 text-xs font-medium capitalize"
 					style="
 					  border-radius: var(--radius-badge);
-					  background-color: color-mix(in srgb, {color} 15%, transparent);
+					  background-color: color-mix(in srgb, {color} 12%, transparent);
 					  color: {color};
 					"
 				>
@@ -139,19 +144,19 @@
 		</div>
 	</div>
 
-	<!-- Right side: chevron indicator -->
+	<!-- Chevron -->
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		width="16"
-		height="16"
+		width="15"
+		height="15"
 		viewBox="0 0 24 24"
 		fill="none"
 		stroke="currentColor"
 		stroke-width="2"
 		stroke-linecap="round"
 		stroke-linejoin="round"
-		class="shrink-0 text-[--color-text-muted] opacity-0 group-hover:opacity-100
-		       transition-opacity hidden sm:block"
+		class="shrink-0 opacity-0 group-hover:opacity-40 transition-opacity hidden sm:block"
+		style="color: var(--color-text);"
 		aria-hidden="true"
 	>
 		<polyline points="9 18 15 12 9 6" />

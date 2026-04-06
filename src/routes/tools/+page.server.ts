@@ -41,8 +41,9 @@ export const load: PageServerLoad = async ({ fetch, url, parent }) => {
 		filters.attributes = attrFilters;
 	}
 
+	const empty = { data: [], total: 0, page: 1, per_page: 24 };
 	const [toolsResponse, regions] = await Promise.all([
-		getTools(fetch, filters),
+		getTools(fetch, filters).catch(() => empty),
 		getRegions(fetch).catch(() => [])
 	]);
 
