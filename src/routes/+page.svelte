@@ -245,7 +245,7 @@
 
 			<!-- Quick links -->
 			<div class="mt-6 flex flex-col gap-2">
-				<Button href="/submit" variant="ghost" size="sm" class="w-full">
+				<Button href="https://jeremycode.substack.com" variant="ghost" size="sm" class="w-full">
 					Subscribe to newsletter
 				</Button>
 				<Button href="/submit" variant="ghost" size="sm" class="w-full">
