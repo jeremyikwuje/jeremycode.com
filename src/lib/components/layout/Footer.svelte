@@ -1,142 +1,53 @@
 <script lang="ts">
-	import type { Vertical } from '$lib/types/index.js';
-
-	interface Props {
-		verticals?: Vertical[];
-	}
-
-	let { verticals = [] }: Props = $props();
-
-	const activeVerticals = $derived(verticals.filter((v) => v.is_active));
-
 	const currentYear = new Date().getFullYear();
+
+	const links = [
+		{ label: 'Newsletter', href: '/newsletter' },
+		{ label: 'About', href: '/about' },
+		{ label: 'Recommend', href: '/submit' },
+		{ label: 'llms.txt', href: '/llms.txt' },
+	];
 </script>
 
-<footer class="mt-16" style="border-top: 1px solid var(--color-border-subtle); background: var(--color-bg);">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-			<!-- Brand -->
-			<div class="lg:col-span-1">
+<footer class="mt-16" style="border-top: 1px solid var(--color-border-subtle);">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 py-5">
+		<!-- Main row -->
+		<div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm" style="color: var(--color-text-secondary);">
+			<span class="shrink-0">&copy; {currentYear} Jeremy Code</span>
+
+			{#each links as link}
 				<a
-					href="/"
-					class="text-[--color-text] font-bold text-lg tracking-tight hover:text-[--color-primary] transition-colors"
-					style="font-family: var(--font-display);"
+					href={link.href}
+					class="hover:text-[--color-text] transition-colors"
 				>
-					Jeremy Code
+					{link.label}
 				</a>
-				<p class="mt-3 text-sm text-[--color-text-muted] leading-relaxed max-w-xs">
-					A curated directory of fintech infrastructure tools for developers, product teams, and
-					founders.
-				</p>
-			</div>
+			{/each}
 
-			<!-- Verticals (data-driven) -->
-			{#if activeVerticals.length > 0}
-				<div>
-					<h3 class="text-xs font-semibold uppercase tracking-widest text-[--color-text-muted] mb-3">
-						Verticals
-					</h3>
-					<ul class="flex flex-col gap-2">
-						{#each activeVerticals as vertical (vertical.id)}
-							<li>
-								<a
-									href="/{vertical.slug}"
-									class="text-sm text-[--color-text-muted] hover:text-[--color-text] transition-colors"
-								>
-									{vertical.name}
-								</a>
-							</li>
-						{/each}
-						<li>
-							<a
-								href="/tools"
-								class="text-sm text-[--color-text-muted] hover:text-[--color-text] transition-colors"
-							>
-								All Tools
-							</a>
-						</li>
-					</ul>
-				</div>
-			{/if}
+			<a
+				href="mailto:hello@jeremycode.com"
+				class="hover:text-[--color-text] transition-colors"
+			>
+				Contact us: hello@jeremycode.com
+			</a>
 
-			<!-- Directory -->
-			<div>
-				<h3 class="text-xs font-semibold uppercase tracking-widest text-[--color-text-muted] mb-3">
-					Directory
-				</h3>
-				<ul class="flex flex-col gap-2">
-					<li>
-						<a
-							href="/tools"
-							class="text-sm text-[--color-text-muted] hover:text-[--color-text] transition-colors"
-						>
-							Browse Tools
-						</a>
-					</li>
-					<li>
-						<a
-							href="/learn"
-							class="text-sm text-[--color-text-muted] hover:text-[--color-text] transition-colors"
-						>
-							Learn
-						</a>
-					</li>
-					<li>
-						<a
-							href="/submit"
-							class="text-sm text-[--color-text-muted] hover:text-[--color-text] transition-colors"
-						>
-							Submit a Tool
-						</a>
-					</li>
-					<li>
-						<a
-							href="/about"
-							class="text-sm text-[--color-text-muted] hover:text-[--color-text] transition-colors"
-						>
-							About
-						</a>
-					</li>
-				</ul>
-			</div>
-
-			<!-- Policies -->
-			<div>
-				<h3 class="text-xs font-semibold uppercase tracking-widest text-[--color-text-muted] mb-3">
-					Legal
-				</h3>
-				<ul class="flex flex-col gap-2">
-					<li>
-						<a
-							href="/privacy"
-							class="text-sm text-[--color-text-muted] hover:text-[--color-text] transition-colors"
-						>
-							Privacy Policy
-						</a>
-					</li>
-					<li>
-						<a
-							href="/terms"
-							class="text-sm text-[--color-text-muted] hover:text-[--color-text] transition-colors"
-						>
-							Terms of Use
-						</a>
-					</li>
-				</ul>
-			</div>
+			<!-- X / Twitter -->
+			<a
+				href="https://x.com/jeremyikwuje"
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="Jeremy Code on X"
+				class="hover:text-[--color-text] transition-colors"
+			>
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+					<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+				</svg>
+			</a>
 		</div>
 
-		<!-- Bottom bar -->
-		<div
-			class="mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4"
-		style="border-top: 1px solid var(--color-border-subtle);"
-		>
-			<p class="text-xs text-[--color-text-muted]">
-				© {currentYear} Jeremy Code Ltd. All rights reserved.
-			</p>
-			<p class="text-xs text-[--color-text-muted]">
-				Built for developers, by a developer.
-			</p>
-		</div>
+		<!-- Disclaimer -->
+		<p class="mt-3 text-xs leading-relaxed" style="color: var(--color-text-tertiary);">
+			Disclaimer: Use of any product listed on Jeremy Code is at your own risk. Jeremy Code provides information for educational and discovery purposes only and is not liable for any loss, damage, or consequence arising from the use of any tool or service featured on this site.
+		</p>
 	</div>
 </footer>

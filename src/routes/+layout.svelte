@@ -80,7 +80,7 @@
 		{@render children()}
 	</main>
 
-	<Footer verticals={data.verticals} />
+	<Footer />
 </div>
 
 <!-- CommandPalette is always mounted at root so CMD+K works on every page -->

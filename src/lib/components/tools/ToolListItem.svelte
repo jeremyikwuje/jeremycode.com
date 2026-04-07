@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import type { Tool } from '$lib/types/index.js';
 
@@ -9,6 +10,19 @@
 	}
 
 	let { tool, rank, class: extraClass = '' }: Props = $props();
+
+	function handleClick(e: MouseEvent) {
+		// Don't navigate if clicking the external link icon
+		if ((e.target as HTMLElement).closest('[data-external]')) return;
+		goto(`/tools/${tool.slug}`);
+	}
+
+	function handleKeydown(e: KeyboardEvent) {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			goto(`/tools/${tool.slug}`);
+		}
+	}
 
 	const accentColor = $derived(tool.vertical?.accent_colour ?? 'var(--color-primary)');
 
@@ -27,9 +41,12 @@
 	};
 </script>
 
-<a
-	href="/tools/{tool.slug}"
-	class="group card-interactive flex items-center gap-4 px-4 py-4 sm:px-5 {extraClass}"
+<div
+	role="link"
+	tabindex="0"
+	onclick={handleClick}
+	onkeydown={handleKeydown}
+	class="group card-interactive flex items-center gap-4 px-4 py-4 sm:px-5 cursor-pointer {extraClass}"
 	style="border-radius: var(--radius-card);"
 >
 	<!-- Rank number (optional) -->
@@ -79,6 +96,35 @@
 			>
 				{tool.name}
 			</h3>
+			{#if tool.website_url}
+				<!-- Open website in new tab (visible on hover) -->
+				<a
+					href={tool.website_url}
+					target="_blank"
+					rel="noopener noreferrer"
+					onclick={(e) => e.stopPropagation()}
+					aria-label="Open {tool.name} website in new tab"
+					class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+					style="color: var(--color-text-tertiary);"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="14"
+						height="14"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+						<polyline points="15 3 21 3 21 9" />
+						<line x1="10" y1="14" x2="21" y2="3" />
+					</svg>
+				</a>
+			{/if}
 			<p
 				class="hidden sm:block text-sm truncate"
 				style="color: var(--color-text-secondary);"
@@ -161,4 +207,4 @@
 	>
 		<polyline points="9 18 15 12 9 6" />
 	</svg>
-</a>
+</div>

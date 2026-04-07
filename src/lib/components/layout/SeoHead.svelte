@@ -23,7 +23,7 @@
 	 * The SITE_SUFFIX is appended to title unless the title already ends with it.
 	 */
 
-	const SITE_SUFFIX = '| Jeremy Code';
+	const SITE_SUFFIX = '— Jeremy Code';
 	const SITE_NAME = 'Jeremy Code';
 	const DEFAULT_IMAGE = 'https://jeremycode.com/og-default.png';
 
